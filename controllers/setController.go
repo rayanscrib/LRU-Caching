@@ -5,10 +5,11 @@ import (
 	"girish/lrucaching/models"
 	"net/http"
 	"time"
+
 	"github.com/gin-gonic/gin"
 )
 
-//SetHandler funciton gets the Json, sets the expiry from now to the expired seconds provided
+// SetHandler funciton gets the Json, sets the expiry from now to the expired seconds provided
 func SetHandler(cache *models.LruCache) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var requestBody *models.Data
@@ -16,8 +17,7 @@ func SetHandler(cache *models.LruCache) gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request Payload is invalid"})
 			return
 		}
-		expiration := time.Now().UnixMilli() + requestBody.Timeout
-		Set(requestBody.Key, requestBody.Value, expiration, cache)
+		Set(requestBody.Key, requestBody.Value, requestBody.Timeout, cache)
 		c.JSON(http.StatusOK, gin.H{"message": "Cache Entry as been set"})
 	}
 }
@@ -26,9 +26,9 @@ func Set(key string, value interface{}, timeout int64, cache *models.LruCache) {
 	cache.Mutex.Lock()
 	defer cache.Mutex.Unlock()
 
-	expiration := time.Now().Unix() + timeout
+	expiration := time.Now().UnixMilli() + (timeout * 1000)
 
-    //If the key already exists, then updating the value and pushing to the front of queueu
+	//If the key already exists, then updating the value and pushing to the front of queueu
 	if element, found := cache.Data[key]; found {
 		data := element.Value.(*models.Data)
 		data.Value = value

@@ -95,7 +95,7 @@ const CacheForm = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="timeout-input">Timeout (ms)</label>
+                            <label htmlFor="timeout-input">Timeout (seconds)</label>
                             <input
                                 type="number"
                                 id="timeout-input"
@@ -110,7 +110,7 @@ const CacheForm = () => {
                 )}
 
                 <button type="submit" className="form-button">
-                    {operation === 'set' ? 'Set cache' : 'Get =cache'}
+                    {operation === 'set' ? 'Set cache' : 'Get cache'}
                 </button>
             </form>
 

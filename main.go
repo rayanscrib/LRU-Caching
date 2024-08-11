@@ -1,7 +1,7 @@
 package main
 
 import (
-	"girish/lrucaching/models"      
+	"girish/lrucaching/models"
 	"github.com/gin-gonic/gin"
 	"girish/lrucaching/routes"
 	"container/list"
@@ -11,18 +11,17 @@ import (
 
 
 //Contstructor for the cache
-func initLruCache() *models.LruCache {
-	return &models.LruCache{
-		Data:     make(map[string]*list.Element),
-		Capacity: 1024,
-		Queue:    list.New(),
-	}
+func InitLruCache(size int) *models.LruCache {
+    return &models.LruCache{
+        Data:     make(map[string]*list.Element),
+        Capacity: size,
+        Queue:    list.New(),
+    }
 }
 
-
-//main function
+// main function
 func main() {
-	cache := initLruCache()
+	cache := InitLruCache(1024) //setting to1024 , lessen foe testing/evalutaion
 
 	route := gin.Default()
 	route.Use(cors.New(cors.Config{
