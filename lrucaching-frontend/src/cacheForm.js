@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';
+import './App.css'; 
 
 const CacheForm = () => {
     const [operation, setOperation] = useState('set');
@@ -13,10 +13,9 @@ const CacheForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-
         setResult(null);
         setError(null);
-
+    
         try {
             if (operation === 'set') {
                 // Set operation
@@ -25,7 +24,7 @@ const CacheForm = () => {
                     value: value,
                     timeout: timeout,
                 });
-                alert('Key-Value pair set successfully!');
+                setResult({ success: true, message: 'Key-Value pair set successfully!' });
             } else if (operation === 'get') {
                 // Get operation
                 const response = await axios.get(`http://localhost:8080/girishLru/get/${key}`);
@@ -35,10 +34,21 @@ const CacheForm = () => {
                 }
             }
         } catch (error) {
-            console.error("There was an error!", error);
-            setError('Operation failed!');
+            if (error.response && error.response.status === 404) {
+                setError('Key not found or may have expired');
+            } else {
+                console.error("There was an error!", error);
+                setError('Operation failed!');
+            }
         }
     };
+
+    useEffect(() => {
+        //Here I am resetting the result-continer for every get or for every key entry
+        if (operation === 'get') {
+            setResult(null);
+        }
+    }, [key, operation]);
 
     return (
         <div className="form-container">
@@ -100,22 +110,28 @@ const CacheForm = () => {
                 )}
 
                 <button type="submit" className="form-button">
-                    {operation === 'set' ? 'Set Cache' : 'Get Cache'}
+                    {operation === 'set' ? 'Set cache' : 'Get =cache'}
                 </button>
             </form>
 
-            {operation === 'get' && result && !error && (
-                <div className="result-container">
-                    <h3>Result:</h3>
-                    <p><strong>Key:</strong> {key}</p>
-                    <p><strong>Value:</strong> {result.value}</p>
+            {error && (
+                <div className="error-container">
+                    <h3>Error:</h3>
+                    <p>{error}</p>
                 </div>
             )}
 
-            {operation === 'get' && error && (
+            {result && (
                 <div className="result-container">
-                    <h3>Error:</h3>
-                    <p>{error}</p>
+                    <h3>Result:</h3>
+                    {result.success ? (
+                        <p>{result.message}</p>
+                    ) : (
+                        <>
+                            <p><strong>Key:</strong> {key}</p>
+                            <p><strong>Value:</strong> {result.value}</p>
+                        </>
+                    )}
                 </div>
             )}
         </div>
