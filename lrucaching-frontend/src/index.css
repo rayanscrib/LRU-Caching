@@ -1,0 +1,125 @@
+/* Basic reset for margin and padding */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Style for the form container */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Grouping form elements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Style for labels */
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style for the select dropdown */
+.form-select {
+  width: 95%;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #444;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  appearance: none; /* Remove default arrow */
+}
+
+/* Custom arrow for select */
+.form-select::after {
+  content: '▼';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Focus state for select */
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 7px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Style for text inputs */
+.form-input {
+  width: 90%;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #444;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state for inputs */
+.form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 7px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Style for submit button */
+.form-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+/* Style for result container */
+.result-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.result-container h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.result-container p {
+  margin-bottom: 5px;
+}
+
+.result-container strong {
+  color: #555;
+}
